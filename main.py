@@ -1,7 +1,8 @@
 import requests
 import json
+from random import shuffle
 
-va = requests.get('https://opentdb.com/api.php?amount=10&category=18&difficulty=easy')
+va = requests.get('https://opentdb.com/api.php?amount=10&category=18&difficulty=medium')
 
 valu = va.text
 
@@ -15,7 +16,7 @@ n = 0
 
 #options =  values[n]["correct_answer"] + values[n]["incorrect_answer"]
 
-while n<=10:
+while n<10:
 
   for each in values:
 
@@ -23,13 +24,15 @@ while n<=10:
 
     crct = values[n]["correct_answer"] 
 
-    for each in option:
+    lists = []
 
-      lists = []
+    lists.append(crct)
+
+    for each in option:
 
       lists.append(each)
 
-      lists.append(crct)
+      shuffle(lists)
 
     print(values[n]["question"])
 
@@ -43,10 +46,26 @@ while n<=10:
 
     if lists[ans - 1] == crct:
       score+=1
-      print("your score is = " , score)
+      print("your score is = " , score ,'\n')
 
     else:
 
-      print("Noooo!!!")
+      print("Noooo!!!" , '\n')
 
     n+=1
+
+else:
+
+  final_score = ""
+
+  if score == 10:
+    final_score = "Your Awesome!!"
+  elif score >= 7:
+    final_score = "Good"
+  elif score >=4:
+    final_score = "Better"
+  else:
+    final_score = "Do well"
+
+  print("Your Quizz is over and your score is : " , score, "\n")
+  print(final_score)
